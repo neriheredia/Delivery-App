@@ -12,6 +12,7 @@
     "@paypal/react-paypal-js": "^7.6.0",
     "@reduxjs/toolkit": "^1.8.0",
     "axios": "^0.26.0",
+    "babel-eslint": "^10.1.0",
     "mongoose": "^6.2.3",
     "next": "12",
     "react": "^17.0.2",
