@@ -5,14 +5,14 @@ import axios from "axios";
 const Order = ({ order }) => {
     const status = order.status;
 
-    console.log(order);
-    console.log(status);
+    console.log(order.status);
 
     const statusClass = (index) => {
         if (index - status < 1) return styles.done;
         if (index - status === 1) return styles.inProgress;
         if (index - status > 1) return styles.undone;
     };
+
     return (
         <div className={styles.container}>
             <div className={styles.left}>
@@ -117,7 +117,7 @@ const Order = ({ order }) => {
 };
 
 export const getServerSideProps = async ({ params }) => {
-    const res = await axios.get(`https://delivery-app-5mpzocbiz-neriheredia.vercel.app/api/orders?${params.id}`);
+    const res = await axios.get(`http://localhost:3000/api/orders/${params.id}`);
     return {
         props: { order: res.data },
     };

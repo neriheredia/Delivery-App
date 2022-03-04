@@ -1,29 +1,31 @@
-import dbConnect from "../../../util/mongo"
-import Product from '../../../models/Product'
+import dbConnect from "../../../util/mongo";
+import Product from "../../../models/Product";
 
 export default async function handler(req, res) {
-    const { method } = req
+    const { method, cookies } = req;
 
-    await dbConnect()
+    const token = cookies.token
 
-    if (method === 'GET') {
+    dbConnect();
+
+    if (method === "GET") {
         try {
-            const allBurger = await Product.find()
-            res.status(200).json(allBurger)
+            const products = await Product.find();
+            res.status(200).json(products);
         } catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(err);
         }
     }
 
-    if (method === 'POST') {
+    if (method === "POST") {
+        if (!token || token !== process.env.token) {
+            return res.status(401).json("Not authenticated!")
+        }
         try {
-            const product = await Product.create(req.body)
-            res.status(201).json(product)
+            const product = await Product.create(req.body);
+            res.status(201).json(product);
         } catch (err) {
-            res.status(500).json(err)
+            res.status(500).json(err);
         }
     }
-
-    if (method === 'PUT') { }
-    if (method === 'DELETE') { }
 }
