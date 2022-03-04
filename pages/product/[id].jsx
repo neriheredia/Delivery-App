@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from 'axios'
 import { useDispatch } from "react-redux";
 import { addProduct } from "../../redux/cartSlice";
+import { urlBase } from "../../config/requestMethod";
 
 const Product = ({ burger }) => {
     const [price, setPrice] = useState(burger.prices[0]);
@@ -99,7 +100,7 @@ const Product = ({ burger }) => {
 };
 
 export const getServerSideProps = async ({ params }) => {
-    const res = await axios.get(`http://localhost:3000/api/products/${params.id}`);
+    const res = await urlBase.get(`products/${params.id}`);
     return {
         props: {
             burger: res.data

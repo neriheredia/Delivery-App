@@ -5,7 +5,7 @@ import Featured from '../components/Featured'
 import Add from '../components/Add'
 import AddButton from '../components/AddButton'
 import ProductsList from '../components/ProductsList'
-import axios from 'axios'
+import { urlBase } from '../config/requestMethod'
 
 export default function Home({ burgerList, admin }) {
     const [close, setClose] = useState(true)
@@ -32,7 +32,7 @@ export const getServerSideProps = async (ctx) => {
     if (myCookie.token === process.env.TOKEN) {
         admin = true;
     }
-    const res = await axios.get("http://localhost:3000/api/products");
+    const res = await urlBase.get("products");
     return {
         props: {
             burgerList: res.data,
